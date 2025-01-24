@@ -17,11 +17,12 @@ import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.Input
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
-
+import com.varabyte.kobweb.silk.components.forms.Button
 @Page
 @Composable
 fun HomePage() {
     var name by remember { mutableStateOf("") }
+    var colorMode by ColorMode.currentState
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -62,5 +63,13 @@ fun HomePage() {
                     onInput { name = it.value }
                 }
         )
+        Button(
+            modifier = Modifier
+                .margin(top = 10.px),
+            onClick = {
+                colorMode = colorMode.opposite
+            }){
+            if(colorMode.isLight) FaSun() else FaMoon()
+        }
     }
 }
