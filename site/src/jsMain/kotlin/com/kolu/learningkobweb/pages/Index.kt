@@ -21,55 +21,32 @@ import com.varabyte.kobweb.silk.components.forms.Button
 @Page
 @Composable
 fun HomePage() {
-    var name by remember { mutableStateOf("") }
     var colorMode by ColorMode.currentState
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.End
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            FaFaceSmile(
-                modifier = Modifier.margin(right = 10.px),
-                size = IconSize.XXL,
-                style = IconStyle.OUTLINE
-            )
-            P(
-                attrs = Modifier
-                    .fontSize(40.px)
-                    .toAttrs()
-            ) {
-                Text(
-                    value = "Hello $name"
-                )
-            }
-
-        }
-        Input(
-            type = InputType.Text,
-            attrs = Modifier
-                .fontSize(20.px)
-                .outline(
-                    width = 10.px,
-                    style = LineStyle.None,
-                    color = Colors.Red
-                )
-                .padding(leftRight = 20.px, topBottom = 10.px)
-                .toAttrs(){
-                    placeholder(value = "Enter Your Name: ")
-                    onInput { name = it.value }
-                }
-        )
         Button(
             modifier = Modifier
-                .margin(top = 10.px),
+                .margin(top = 10.px, right = 10.px),
             onClick = {
                 colorMode = colorMode.opposite
             }){
             if(colorMode.isLight) FaSun() else FaMoon()
         }
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+            }
+        }
+
+
     }
 }
