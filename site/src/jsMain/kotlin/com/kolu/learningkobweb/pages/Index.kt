@@ -1,7 +1,7 @@
 package com.kolu.learningkobweb.pages
 
 import androidx.compose.runtime.*
-import com.kolu.learningkobweb.components.NavHeader
+import com.kolu.learningkobweb.components.ui.NavHeader
 import com.varabyte.kobweb.compose.foundation.layout.*
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier

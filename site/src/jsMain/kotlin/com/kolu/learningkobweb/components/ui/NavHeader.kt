@@ -1,4 +1,4 @@
-package com.kolu.learningkobweb.components
+package com.kolu.learningkobweb.components.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
