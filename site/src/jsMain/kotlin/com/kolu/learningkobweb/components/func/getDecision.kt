@@ -1,6 +1,6 @@
 package com.kolu.learningkobweb.components.func
 
-fun getDecision(player: Selection, computer: Selection): Decision{
+fun getDecision(player: Variants, computer: Variants): Decision{
     return if(player == computer) Decision.Draw
     else if(
         (player.isRock() && computer.isScissor()) ||
