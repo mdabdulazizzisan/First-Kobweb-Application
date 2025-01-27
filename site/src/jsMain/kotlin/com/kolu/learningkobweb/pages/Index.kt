@@ -1,21 +1,16 @@
 package com.kolu.learningkobweb.pages
 
 import androidx.compose.runtime.*
+import com.kolu.learningkobweb.components.NavHeader
 import com.varabyte.kobweb.compose.foundation.layout.*
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.Page
-import com.varabyte.kobweb.core.rememberPageContext
-import com.varabyte.kobweb.silk.components.icons.fa.*
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.Text
 import com.varabyte.kobweb.silk.components.forms.Button
-import com.varabyte.kobweb.silk.components.text.SpanText
-import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.P
 import kotlin.random.Random
 
@@ -25,8 +20,6 @@ fun HomePage() {
     var playerSelected by remember { mutableStateOf(-1) }
     var computerSelected by remember { mutableStateOf(-1) }
     var winner by remember { mutableStateOf(false) }
-    var colorMode by ColorMode.currentState
-    val ctx = rememberPageContext()
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -38,55 +31,7 @@ fun HomePage() {
                 .padding(leftRight = 20.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .margin(top = 10.px)
-            ){
-                P(
-                    attrs = Modifier
-                        .fontSize(20.px)
-                        .toAttrs(),
-                ) {
-                    Row {
-                        SpanText(
-                            text = "Developed with "
-                        )
-                        FaHeart(
-                            style = IconStyle.FILLED,
-                            modifier = Modifier.color(Colors.Red)
-                        )
-                        SpanText(
-                            text = " by "
-                        )
-                        A(href = "https://www.github.com/mdabdulazizzisan"){
-                            Text("Md Abdul Aziz Zisan")
-                        }
-
-                    }
-                }
-                Spacer()
-                Row {
-                    Button(
-                        modifier = Modifier
-                            .background(Colors.Transparent),
-                        onClick = {
-                            ctx.router.navigateTo("https://github.com/mdabdulazizzisan/First-Kobweb-Application")
-
-                        },
-                    ){
-                        FaGithub()
-                    }
-                    Button(
-                        modifier = Modifier
-                            .background(Colors.Transparent),
-                        onClick = {
-                            colorMode = colorMode.opposite
-                        }){
-                        if(colorMode.isLight) FaSun() else FaMoon()
-                    }
-                }
-            }
+            NavHeader()
             Column(
                 modifier = Modifier
                     .fillMaxSize(),
