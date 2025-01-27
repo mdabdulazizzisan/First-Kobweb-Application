@@ -1,7 +1,12 @@
 package com.kolu.learningkobweb.pages
 
 import androidx.compose.runtime.*
+import com.kolu.learningkobweb.components.func.Decision
+import com.kolu.learningkobweb.components.func.Variants
+import com.kolu.learningkobweb.components.func.getComputerVariant
+import com.kolu.learningkobweb.components.func.getDecision
 import com.kolu.learningkobweb.components.ui.NavHeader
+import com.kolu.learningkobweb.components.ui.VariantButton
 import com.varabyte.kobweb.compose.foundation.layout.*
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -10,16 +15,15 @@ import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.Page
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.Text
-import com.varabyte.kobweb.silk.components.forms.Button
+import com.varabyte.kobweb.silk.components.icons.fa.*
 import org.jetbrains.compose.web.dom.P
-import kotlin.random.Random
 
 @Page
 @Composable
 fun HomePage() {
-    var playerSelected by remember { mutableStateOf(-1) }
-    var computerSelected by remember { mutableStateOf(-1) }
-    var winner by remember { mutableStateOf(false) }
+    var playerSelected: Variants by remember { mutableStateOf(Variants.Rock) }
+    var computerSelected: Variants by remember { mutableStateOf(Variants.Rock) }
+    var decision: Decision by remember { mutableStateOf(Decision.Draw) }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -41,39 +45,32 @@ fun HomePage() {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Button(
-                        modifier = Modifier
-                            .size(100.px)
-                            .margin(leftRight = 10.px),
+                    VariantButton(
                         onClick = {
-                            playerSelected = 0
-                            computerSelected = getComputerSelected()
-                            winner = playerSelected == computerSelected
-                        },
+                            playerSelected = Variants.Rock
+                            computerSelected = getComputerVariant()
+                            decision = getDecision(playerSelected, computerSelected)
+                        }
                     ){
-                        Text("Rock")
+                        FaHandFist(size = IconSize.XXL)
                     }
-                    Button(
-                        modifier = Modifier
-                            .size(100.px)
-                            .margin(leftRight = 10.px),
+                    VariantButton(
                         onClick = {
-                            playerSelected = 1
-                            computerSelected = getComputerSelected()
-                            winner = playerSelected == computerSelected },
+                            playerSelected = Variants.Paper
+                            computerSelected = getComputerVariant()
+                            decision = getDecision(playerSelected, computerSelected)
+                        }
                     ){
-                        Text("Paper")
+                        FaHand(size = IconSize.XXL, style = IconStyle.FILLED)
                     }
-                    Button(
-                        modifier = Modifier
-                            .size(100.px)
-                            .margin(leftRight = 10.px),
+                    VariantButton(
                         onClick = {
-                            playerSelected = 2
-                            computerSelected = getComputerSelected()
-                            winner = playerSelected == computerSelected },
+                            playerSelected = Variants.Scissor
+                            computerSelected = getComputerVariant()
+                            decision = getDecision(playerSelected, computerSelected)
+                        }
                     ){
-                        Text("Scissor")
+                        FaHandPeace(size = IconSize.XXL, style = IconStyle.FILLED)
                     }
                 }
                 P(
@@ -82,29 +79,26 @@ fun HomePage() {
                         .margin(top = 20.px)
                         .toAttrs()
                 ) {
+                    Column {
+                        Text(
+                            value = "Player: $playerSelected || Computer: $computerSelected."
+                        )
+                        Text(
+                            value = "You $decision!!!"
+                        )
+                    }
+                }
+                P(
+                    attrs = Modifier
+                        .fontSize(40.px)
+                        .margin(top = 20.px)
+                        .toAttrs()
+                ){
                     Text(
-                        value = if (winner) "You selected ${selectedToString(playerSelected)} \n" +
-                                "and I selected ${selectedToString(computerSelected)} \n" +
-                                "You Win!!!" else "You selected ${selectedToString(playerSelected)} \n" +
-                                "and I selected ${selectedToString(computerSelected)} \n" +
-                                "You Loose!!!",
+                        value = "You $decision!!!"
                     )
                 }
             }
         }
-    }
-}
-
-
-fun getComputerSelected(): Int{
-    return Random.nextInt(0,3)
-}
-
-fun selectedToString(selected: Int): String{
-    return when(selected){
-        0 -> "rock"
-        1 -> "Paper"
-        2 -> "Scissor"
-        else -> "Invalid"
     }
 }
