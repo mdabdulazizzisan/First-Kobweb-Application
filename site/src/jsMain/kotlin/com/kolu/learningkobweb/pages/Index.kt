@@ -83,9 +83,6 @@ fun HomePage() {
                         Text(
                             value = "Player: $playerSelected || Computer: $computerSelected."
                         )
-                        Text(
-                            value = "You $decision!!!"
-                        )
                     }
                 }
                 P(
