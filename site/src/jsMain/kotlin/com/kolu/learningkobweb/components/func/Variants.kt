@@ -1,27 +1,20 @@
 package com.kolu.learningkobweb.components.func
 
-sealed class Selection(val value: Int) {
-    data object Rock: Selection(value = 0)
-    data object Paper: Selection(value = 1)
-    data object Scissor: Selection(value = 2)
+sealed class Variants {
+    data object Rock: Variants()
+    data object Paper: Variants()
+    data object Scissor: Variants()
 }
 
-fun Selection.toInt(): Int{
-    return when(this){
-        Selection.Paper -> Selection.Paper.value
-        Selection.Rock -> Selection.Rock.value
-        Selection.Scissor -> Selection.Scissor.value
-    }
+
+fun Variants.isRock(): Boolean{
+    return this is Variants.Rock
 }
 
-fun Selection.isRock(): Boolean{
-    return this is Selection.Rock
+fun Variants.isPaper(): Boolean{
+    return this is Variants.Paper
 }
 
-fun Selection.isPaper(): Boolean{
-    return this is Selection.Paper
-}
-
-fun Selection.isScissor(): Boolean{
-    return this is Selection.Scissor
+fun Variants.isScissor(): Boolean{
+    return this is Variants.Scissor
 }
